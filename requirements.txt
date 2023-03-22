@@ -1,2 +1,8 @@
 tqdm
-tensorflow<2.11
+pandas
+pillow
+
+# untuk windows
+# tensorflow<2.11
+# untuk linux
+# tensorflow
