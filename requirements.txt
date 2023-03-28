@@ -1,6 +1,7 @@
 tqdm
 pandas
 pillow
+scipy
 
 # untuk windows
 # tensorflow<2.11
