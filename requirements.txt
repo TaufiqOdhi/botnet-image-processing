@@ -2,6 +2,8 @@ tqdm
 pandas
 pillow
 scipy
+scikit-learn
+seaborn
 
 # untuk windows
 # tensorflow<2.11
