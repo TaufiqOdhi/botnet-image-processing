@@ -18,10 +18,10 @@ if __name__ == '__main__':
         filter_column = args.filter_column
     else:
         filter_column = 'all'
-    result_filename = f'{BASE_RESULT_DIR}/{args.program}_{filter_column}.txt'
+    result_filename = f'{BASE_RESULT_DIR}/{args.program}_{filter_column}.csv'
     dataset_directory = f'{BASE_GENERATED_IMAGE_DIR}/{args.program}/{filter_column}'
     if args.program == 'v2':
-        result_filename = f'{result_filename[:-4]}_{args.threshold}.txt'
+        result_filename = f'{result_filename[:-4]}_{args.threshold}.csv'
         dataset_directory = f'{dataset_directory}/{args.threshold}'        
     
     train_ds, validation_ds = load_dataset(
@@ -40,11 +40,9 @@ if __name__ == '__main__':
     ]
     model = get_model()
     model.compile(optimizer='adam', loss='binary_crossentropy', metrics=metrics)
-
-    with open(result_filename, 'w') as f:
-        with redirect_stdout(f):
-            model.fit(
-                train_ds,
-                epochs=NUM_EPOCHS,
-                validation_data=validation_ds,
-            )
+    model.fit(
+        train_ds,
+        epochs=NUM_EPOCHS,
+        validation_data=validation_ds,
+        callbacks=[tf.keras.callbacks.CSVLogger(result_filename)]
+    )
