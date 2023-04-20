@@ -3,7 +3,7 @@ import argparse
 from contextlib import redirect_stdout
 from model import get_model
 from convert import load_dataset
-from config import NUM_EPOCHS, BASE_RESULT_DIR, BASE_GENERATED_IMAGE_DIR
+from config import NUM_EPOCHS, BASE_RESULT_DIR, BASE_GENERATED_IMAGE_DIR, BASE_SAVE_MODEL_DIR
 
 
 if __name__ == '__main__':
@@ -19,14 +19,22 @@ if __name__ == '__main__':
     else:
         filter_column = 'all'
     result_filename = f'{BASE_RESULT_DIR}/{args.program}_{filter_column}.csv'
+    train_chkpth_dir = f'{BASE_SAVE_MODEL_DIR}/{args.program}_{filter_column}'
     dataset_directory = f'{BASE_GENERATED_IMAGE_DIR}/{args.program}/{filter_column}'
     if args.program == 'v2':
         result_filename = f'{result_filename[:-4]}_{args.threshold}.csv'
-        dataset_directory = f'{dataset_directory}/{args.threshold}'        
+        train_chkpth_dir = f'{train_chkpth_dir}_{args.threshold}'
+        dataset_directory = f'{dataset_directory}/{args.threshold}'            
     
     train_ds, validation_ds = load_dataset(
         class_name=['1.benign', '1.mirai.ack'],
         dataset_directory=dataset_directory
+    )
+
+    chkpth_callback = tf.keras.callbacks.ModelCheckpoint(
+        filepath='%s/checkpoint_{epoch:03d}' % train_chkpth_dir,
+        verbose=1,
+        save_best_only=True,
     )
 
     metrics = [
@@ -44,5 +52,6 @@ if __name__ == '__main__':
         train_ds,
         epochs=NUM_EPOCHS,
         validation_data=validation_ds,
-        callbacks=[tf.keras.callbacks.CSVLogger(result_filename)]
+        callbacks=[tf.keras.callbacks.CSVLogger(result_filename), chkpth_callback],
+        verbose=2,
     )
