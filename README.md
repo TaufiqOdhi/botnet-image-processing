@@ -83,9 +83,9 @@ generated_image
 │       └── ----------
 │   └── -----
 ```
-#### result
+#### Result
 ```
-generated_image
+result
 ├── v1_{filter query 1}.csv
 ├── v1_{filter query 2}.csv
 ├── v1_{filter query 3}.csv
@@ -96,7 +96,7 @@ generated_image
 ├── v2_{filter query 3}_{threshold 2}.csv
 ├── ---------
 ```
-#### saved_model
+#### Saved model
 ```
 saved_model
 ├── v1_{filter query 1}
