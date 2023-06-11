@@ -1,5 +1,5 @@
-# BASE_DATASET_DIR = '/mnt/Windows/Users/taufi/MyFile/Projects/datasets/N-BaIoT'
-BASE_DATASET_DIR = '/home/maoik/Projects/datasets/N-BaIoT'
+BASE_DATASET_DIR = '/mnt/Windows/Users/taufi/MyFile/Projects/datasets/N-BaIoT'
+# BASE_DATASET_DIR = '/home/maoik/Projects/datasets/N-BaIoT'
 BASE_GENERATED_IMAGE_DIR = 'generated_image'
 BASE_RESULT_DIR = 'result'
 BASE_SAVE_MODEL_DIR = 'saved_model'

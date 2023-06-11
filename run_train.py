@@ -1,9 +1,8 @@
 import tensorflow as tf
 import argparse
-from contextlib import redirect_stdout
 from model import get_model
 from convert import load_dataset
-from config import NUM_EPOCHS, BASE_RESULT_DIR, BASE_GENERATED_IMAGE_DIR, BASE_SAVE_MODEL_DIR
+from config import NUM_EPOCHS, BASE_RESULT_DIR, BASE_GENERATED_IMAGE_DIR, BASE_SAVE_MODEL_DIR, BENIGN_FILENAME, MIRAI_FILENAME
 
 
 if __name__ == '__main__':
@@ -27,7 +26,7 @@ if __name__ == '__main__':
         dataset_directory = f'{dataset_directory}/{args.threshold}'            
     
     train_ds, validation_ds = load_dataset(
-        class_name=['1.benign', '1.mirai.ack'],
+        class_name=[ BENIGN_FILENAME[:-4], MIRAI_FILENAME[:-4] ],
         dataset_directory=dataset_directory
     )
 

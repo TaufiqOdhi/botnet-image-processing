@@ -1,5 +1,4 @@
 import os
-import numpy as np
 import pandas as pd
 from convert import convert_pict, get_list_pics
 from config import BASE_DATASET_DIR, BASE_GENERATED_IMAGE_DIR
